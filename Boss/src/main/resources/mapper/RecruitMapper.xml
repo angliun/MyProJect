@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.erp.mapper.RecruitMapper">
+  <resultMap id="BaseResultMap" type="com.shop.erp.pojo.Recruit">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="company_name" jdbcType="VARCHAR" property="company_name" />
+    <result column="personnel" jdbcType="VARCHAR" property="personnel" />
+    <result column="wages" jdbcType="VARCHAR" property="wages" />
+    <result column="requirement" jdbcType="VARCHAR" property="requirement" />
+    <result column="recruitment_object" jdbcType="VARCHAR" property="recruitment_object" />
+    <result column="release_date" jdbcType="DATE" property="release_date" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, company_name, personnel, wages, requirement, recruitment_object, release_date,
+    telephone, address
+  </sql>
+  <select id="selectCount" parameterType="string" resultType="int">
+    select count(id) from Recruit
+    <where>
+      <if test="condition != null and condition!=''">red like CONCAT('%',#{condition},'%')</if>
+    </where>
+  </select>
+  <select id="selectAllUser" resultMap="BaseResultMap">
+    SELECT *
+    from  recruit
+    <where>
+      <if test="condition != null and condition!=''">
+        company_name like CONCAT('%',#{condition},'%')
+        or
+        personnel like CONCAT('%',#{condition},'%')
+        or
+        wages like CONCAT('%',#{condition},'%')
+        or
+        requirement like CONCAT('%',#{condition},'%')
+        or
+        recruitment_object like CONCAT('%',#{condition},'%')
+        or
+        telephone like CONCAT('%',#{condition},'%')
+        or
+        address like CONCAT('%',#{condition},'%')
+      </if>
+    </where>
+    limit #{startIndex},#{pageSize}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from recruit
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from recruit
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shop.erp.pojo.Recruit">
+    insert into recruit (id, company_name, personnel,
+      wages, requirement, recruitment_object,
+      release_date, telephone, address
+      )
+    values (#{id,jdbcType=INTEGER}, #{company_name,jdbcType=VARCHAR}, #{personnel,jdbcType=VARCHAR},
+      #{wages,jdbcType=VARCHAR}, #{requirement,jdbcType=VARCHAR}, #{recruitment_object,jdbcType=VARCHAR},
+      #{release_date,jdbcType=DATE}, #{telephone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shop.erp.pojo.Recruit">
+    insert into recruit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="company_name != null">
+        company_name,
+      </if>
+      <if test="personnel != null">
+        personnel,
+      </if>
+      <if test="wages != null">
+        wages,
+      </if>
+      <if test="requirement != null">
+        requirement,
+      </if>
+      <if test="recruitment_object != null">
+        recruitment_object,
+      </if>
+      <if test="release_date != null">
+        release_date,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="company_name != null">
+        #{company_name,jdbcType=VARCHAR},
+      </if>
+      <if test="personnel != null">
+        #{personnel,jdbcType=VARCHAR},
+      </if>
+      <if test="wages != null">
+        #{wages,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null">
+        #{requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitment_object != null">
+        #{recruitment_object,jdbcType=VARCHAR},
+      </if>
+      <if test="release_date != null">
+        #{release_date,jdbcType=DATE},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shop.erp.pojo.Recruit">
+    update recruit
+    <set>
+      <if test="company_name != null">
+        company_name = #{company_name,jdbcType=VARCHAR},
+      </if>
+      <if test="personnel != null">
+        personnel = #{personnel,jdbcType=VARCHAR},
+      </if>
+      <if test="wages != null">
+        wages = #{wages,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null">
+        requirement = #{requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitment_object != null">
+        recruitment_object = #{recruitment_object,jdbcType=VARCHAR},
+      </if>
+      <if test="release_date != null">
+        release_date = #{release_date,jdbcType=DATE},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shop.erp.pojo.Recruit">
+    update recruit
+    set company_name = #{company_name,jdbcType=VARCHAR},
+      personnel = #{personnel,jdbcType=VARCHAR},
+      wages = #{wages,jdbcType=VARCHAR},
+      requirement = #{requirement,jdbcType=VARCHAR},
+      recruitment_object = #{recruitment_object,jdbcType=VARCHAR},
+      release_date = #{release_date,jdbcType=DATE},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryName" parameterType="com.shop.erp.pojo.Recruit">
+    update recruit
+    set company_name = #{company_name,jdbcType=VARCHAR},
+      personnel = #{personnel,jdbcType=VARCHAR},
+      wages = #{wages,jdbcType=VARCHAR},
+      requirement = #{requirement,jdbcType=VARCHAR},
+      recruitment_object = #{recruitment_object,jdbcType=VARCHAR},
+      release_date = #{release_date,jdbcType=DATE},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

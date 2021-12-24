@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.erp.mapper.ResumeMapper">
+  <resultMap id="BaseResultMap" type="com.shop.erp.pojo.Resume">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="real_name" jdbcType="VARCHAR" property="real_name" />
+    <result column="intended_position" jdbcType="VARCHAR" property="intended_position" />
+    <result column="salary_expectation" jdbcType="VARCHAR" property="salary_expectation" />
+    <result column="skill" jdbcType="VARCHAR" property="skill" />
+    <result column="education" jdbcType="VARCHAR" property="education" />
+    <result column="project_experience" jdbcType="VARCHAR" property="project_experience" />
+    <result column="self_evaluation" jdbcType="VARCHAR" property="self_evaluation" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, real_name, intended_position, salary_expectation, skill, education, project_experience, 
+    self_evaluation
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from resume
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from resume
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shop.erp.pojo.Resume">
+    insert into resume (id, real_name, intended_position, 
+      salary_expectation, skill, education, 
+      project_experience, self_evaluation)
+    values (#{id,jdbcType=INTEGER}, #{real_name,jdbcType=VARCHAR}, #{intended_position,jdbcType=VARCHAR}, 
+      #{salary_expectation,jdbcType=VARCHAR}, #{skill,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, 
+      #{project_experience,jdbcType=VARCHAR}, #{self_evaluation,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectCount" parameterType="string" resultType="int">
+    select count(id) from resume
+  </select>
+  <insert id="insertSelective" parameterType="com.shop.erp.pojo.Resume">
+    insert into resume
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="real_name != null">
+        real_name,
+      </if>
+      <if test="intended_position != null">
+        intended_position,
+      </if>
+      <if test="salary_expectation != null">
+        salary_expectation,
+      </if>
+      <if test="skill != null">
+        skill,
+      </if>
+      <if test="education != null">
+        education,
+      </if>
+      <if test="project_experience != null">
+        project_experience,
+      </if>
+      <if test="self_evaluation != null">
+        self_evaluation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="real_name != null">
+        #{real_name,jdbcType=VARCHAR},
+      </if>
+      <if test="intended_position != null">
+        #{intended_position,jdbcType=VARCHAR},
+      </if>
+      <if test="salary_expectation != null">
+        #{salary_expectation,jdbcType=VARCHAR},
+      </if>
+      <if test="skill != null">
+        #{skill,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="project_experience != null">
+        #{project_experience,jdbcType=VARCHAR},
+      </if>
+      <if test="self_evaluation != null">
+        #{self_evaluation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT *
+    from  resume
+    limit #{startIndex},#{pageSize}
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shop.erp.pojo.Resume">
+    update resume
+    <set>
+      <if test="real_name != null">
+        real_name = #{real_name,jdbcType=VARCHAR},
+      </if>
+      <if test="intended_position != null">
+        intended_position = #{intended_position,jdbcType=VARCHAR},
+      </if>
+      <if test="salary_expectation != null">
+        salary_expectation = #{salary_expectation,jdbcType=VARCHAR},
+      </if>
+      <if test="skill != null">
+        skill = #{skill,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="project_experience != null">
+        project_experience = #{project_experience,jdbcType=VARCHAR},
+      </if>
+      <if test="self_evaluation != null">
+        self_evaluation = #{self_evaluation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shop.erp.pojo.Resume">
+    update resume
+    set real_name = #{real_name,jdbcType=VARCHAR},
+      intended_position = #{intended_position,jdbcType=VARCHAR},
+      salary_expectation = #{salary_expectation,jdbcType=VARCHAR},
+      skill = #{skill,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      project_experience = #{project_experience,jdbcType=VARCHAR},
+      self_evaluation = #{self_evaluation,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

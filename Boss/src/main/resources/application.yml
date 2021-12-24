@@ -1,0 +1,27 @@
+server:
+  port: 80
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/
+      suffix: .jsp
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: ALWAYS
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/project?serverTimezone=GMT%2B8&useSSL=true&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.shop.erp.pojo
+
+logging:
+  level:
+    root: info
+    com.shop.erp: debug
